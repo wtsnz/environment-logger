@@ -15,7 +15,7 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv, '', ['statsd-server=', 'statsd-port='])
     except getopt.GetoptError:
-        print 'test.py -i <inputfile> -o <outputfile>'
+        print 'main.py -statsd-server <server> -statsd-port <port>'
         sys.exit(2)
 
     for opt, arg in opts:
@@ -37,11 +37,10 @@ def main(argv):
     humidity_string = '{0:0.2f}'.format(humidity)
 
     # Print the stats (useful for logging)
-    print 'Timestamp = {0:0.3f}'.format(sensor.t_fine)
-    print 'Temp      = {0:0.3f} deg C'.format(degrees)
-    print 'Pressure  = {0:0.2f} hPa'.format(hectopascals)
-    print 'Humidity  = {0:0.2f} %'.format(humidity)
-
+    # print 'Timestamp = {0:0.3f}'.format(sensor.t_fine)
+    # print 'Temp      = {0:0.3f} deg C'.format(degrees)
+    # print 'Pressure  = {0:0.2f} hPa'.format(hectopascals)
+    # print 'Humidity  = {0:0.2f} %'.format(humidity)
 
     # Connect to the server and send the packet
 
@@ -57,23 +56,13 @@ def main(argv):
         sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
         MESSAGE = "env.humidity:" + humidity_string + "|g"
         sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
-    except socket.gaierror:
-        print("Error sending data - socket.gaierror")
     except:
         print("Error sending data")
-
-def sigterm_handler(_signo, _stack_frame):
-    "When sysvinit sends the TERM signal, cleanup before exiting."
-    print("received signal {}, exiting...".format(_signo))
-    sys.exit(0)
-
-signal.signal(signal.SIGTERM, sigterm_handler)
 
 if __name__ == "__main__":
     try:
         while True:
             main(sys.argv[1:])
-            print("done")
             time.sleep(5)
-    except KeyboardInterrupt:
-        print("KeyboardInterrupt")
+    except:
+        print("There was an error ¯\_(ツ)_/¯")
