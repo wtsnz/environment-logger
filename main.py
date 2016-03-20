@@ -66,4 +66,4 @@ if __name__ == "__main__":
             main(sys.argv[1:])
             time.sleep(5)
     except:
-        print("There was an error :(")
+        print("There was an error ¯\_(ツ)_/¯")
