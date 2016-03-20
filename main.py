@@ -1,5 +1,5 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
+#!/usr/bin/python
 
 import sys
 import signal
@@ -66,4 +66,4 @@ if __name__ == "__main__":
             main(sys.argv[1:])
             time.sleep(5)
     except:
-        print("There was an error ¯\_(ツ)_/¯")
+        print("There was an error :(")
