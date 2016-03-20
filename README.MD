@@ -11,22 +11,55 @@ This project requires python 2.7.
 
 ## Installation
 
-Clone the repository and run the main.py
+This will clone the repository, install the init.d service script and register
+to start the script on startup.
 
+    cd ~
     git clone https://github.com/wtsnz/environment-logger.git
     cd environment-logger
     chmod +x main.py
 
+Now to install the service modify the `environment-logger.sh` on lines 18 & 19
+to ensure that they match your configuration and then run the following:
+
+    sudo cp ./environment-logger.sh /etc/init.d/environment-logger
+    sudo chmod +x /etc/init.d/environment-logger
+    sudo update-rc.d environment-logger defaults
+
 ## Usage
 
+If you'd like to manually run the script use the two arguments below to configure it.
+
     $ ./main.py --statsd-server server.com --statsd-port 1234
-    Timestamp = 119445.000
-    Temp      = 23.329 deg C
-    Pressure  = 1023.85 hPa
-    Humidity  = 59.49 %
-    done
-    $
 
-Now I collect the stats every 10 seconds by running the command above in a simple while loop. I can't think of a better way to do this as crontab only goes down to a minute. (If you have a better idea please open an issue!)
+## Service
 
-    while true ; do ./main.py --statsd-server server.com --statsd-port 1234; sleep 10; done
+I've figured out how to get the script to run at startup as a daemon. You can
+control the daemon like so
+
+Start the service
+
+    sudo service environment-logger start
+
+Stop the service
+
+    sudo service environment-logger stop
+
+Restart the service
+
+    sudo service environment-logger restart
+
+Enable the script to start on system startup
+
+    sudo update-rc.d environment-logger defaults
+
+Disable the script to start on system startup
+
+    sudo update-rc.d environment-logger remove
+
+
+## Uninstall
+
+    sudo update-rc.d environment-logger remove
+    sudo rm /etc/init.d/environment-logger
+    sudo rm -rf ~/environment-logger
