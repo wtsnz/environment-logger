@@ -19,12 +19,13 @@ to start the script on startup.
     cd environment-logger
     chmod +x main.py
 
-Now to install the service modify the `environment-logger.sh` on lines 18 & 19
+Now to install the service modify the `environment-logger.sh` (`nano environment-logger.sh`) on lines 18 & 19
 to ensure that they match your configuration and then run the following:
 
     sudo cp ./environment-logger.sh /etc/init.d/environment-logger
     sudo chmod +x /etc/init.d/environment-logger
     sudo update-rc.d environment-logger defaults
+    sudo service environment-logger start
 
 ## Usage
 
@@ -60,6 +61,7 @@ Disable the script to start on system startup
 
 ## Uninstall
 
+    sudo service environment-logger stop
     sudo update-rc.d environment-logger remove
     sudo rm /etc/init.d/environment-logger
     sudo rm -rf ~/environment-logger

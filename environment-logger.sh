@@ -15,7 +15,7 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 NAME=environment-logger
-DAEMON=~/environment-logger/main.py
+DAEMON=/home/pi/environment-logger/main.py
 DAEMONARGS="--statsd-server <SERVER> --statsd-port <PORT>"
 PIDFILE=/var/run/$NAME.pid
 LOGFILE=/var/log/$NAME.log
